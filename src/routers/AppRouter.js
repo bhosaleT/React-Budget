@@ -7,11 +7,8 @@ import EditPage from "../components/EditPage";
 import HelpPage from "../components/HelpPage";
 import NotFoundPage from "../components/NotFoundPage";
 
-
-
-
-const AppRouter = ()=> (
-    <BrowserRouter>
+const AppRouter = () => (
+  <BrowserRouter>
     <div>
       <Header />
       <Switch>
@@ -23,6 +20,6 @@ const AppRouter = ()=> (
       </Switch>
     </div>
   </BrowserRouter>
-)
+);
 
 export default AppRouter;
