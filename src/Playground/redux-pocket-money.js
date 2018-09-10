@@ -22,6 +22,28 @@ const addExpense = ({
 //REMOVE_EXPENSE
 const removeExpense = ({ id } = {}) => ({ type: "REMOVE_EXPENSE", id });
 
+// EDIT_EXPEPNSE
+const editExpense = (id, updates) => ({
+  type: "EDIT_EXPENSE",
+  id,
+  updates
+});
+
+//SET_FILTER_TEXT
+const setTextFilter = (text = "") => ({
+  type: "SET_TEXT_FILTER",
+  text
+});
+
+//SET_FILTER_SORTBYAMOUNT
+const sortBtyAmount = () => ({
+  type: "SET_FILTER_SORTBYAMOUNT"
+});
+
+//SET_FILTER_SORTBYDATE
+const sortByDate = () => ({
+  type: "SET_FILTER_SORTBYDATE"
+});
 //============================== EXPENSES REDUCER =================================//
 
 const expensesReducerDefaultState = [];
@@ -34,6 +56,17 @@ const expensesReducer = (state = expensesReducerDefaultState, action) => {
     case "REMOVE_EXPENSE":
       return state.filter(expense => {
         return action.id !== expense.id;
+      });
+    case "EDIT_EXPENSE":
+      return state.map(expense => {
+        if (expense.id === action.id) {
+          return {
+            ...expense,
+            ...action.updates
+          };
+        } else {
+          return expense;
+        }
       });
     default:
       return state;
@@ -48,9 +81,26 @@ const filtersReducerDefaultState = {
   endDate: undefined
 };
 
+// ============================= FILTERS REDUCER ===============================//
+
 //This reducers deals with the Filters section of the state the switch cases in this reducer will contain actions to manipulate the  filters.
 const filtersReducer = (state = filtersReducerDefaultState, action) => {
   switch (action.type) {
+    case "SET_TEXT_FILTER":
+      return {
+        ...state,
+        text: action.text
+      };
+    case "SET_FILTER_SORTBYAMOUNT":
+      return {
+        ...state,
+        sortBy: "amount"
+      };
+    case "SET_FILTER_SORTBYDATE":
+      return {
+        ...state,
+        sortBy: "date"
+      };
     default:
       return state;
   }
@@ -76,6 +126,14 @@ const expenseTwo = store.dispatch(
 );
 
 store.dispatch(removeExpense({ id: expenseOne.expense.id }));
+
+store.dispatch(editExpense(expenseTwo.expense.id, { amount: 500 }));
+
+store.dispatch(setTextFilter("rent"));
+
+store.dispatch(sortBtyAmount());
+
+store.dispatch(sortByDate());
 
 // this demostate basically writes down what states we want to have in our app
 /* THE STATE
