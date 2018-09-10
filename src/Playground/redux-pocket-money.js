@@ -1,4 +1,26 @@
 import { createStore, combineReducers } from "redux";
+import uuid from "uuid";
+//============================== ACTION GENERATORS =================================//
+
+//ADD_EXPENSE
+const addExpense = ({
+  description = "",
+  note = "", //Destructuring the input from the user in individual fields.
+  amount = 0,
+  createdAt = 0
+} = {}) => ({
+  type: "ADD_EXPENSE",
+  expense: {
+    id: uuid(),
+    description,
+    note,
+    amount,
+    createdAt
+  }
+});
+
+//REMOVE_EXPENSE
+const removeExpense = ({ id } = {}) => ({ type: "REMOVE_EXPENSE", id });
 
 //============================== EXPENSES REDUCER =================================//
 
@@ -7,6 +29,12 @@ const expensesReducerDefaultState = [];
 //This reducer deals with the expenses section of the state the switch cases in this reducer will contain actions to manipulate the expenses state.
 const expensesReducer = (state = expensesReducerDefaultState, action) => {
   switch (action.type) {
+    case "ADD_EXPENSE":
+      return [...state, action.expense];
+    case "REMOVE_EXPENSE":
+      return state.filter(expense => {
+        return action.id !== expense.id;
+      });
     default:
       return state;
   }
@@ -14,8 +42,8 @@ const expensesReducer = (state = expensesReducerDefaultState, action) => {
 
 /* The default state of filters will have almost undefined and default options selected for all values */
 const filtersReducerDefaultState = {
-  text: '',
-  sortBy: 'date',
+  text: "",
+  sortBy: "date",
   startDate: undefined,
   endDate: undefined
 };
@@ -36,7 +64,18 @@ const store = createStore(
   })
 );
 
-console.log(store.getState());
+store.subscribe(() => {
+  console.log(store.getState());
+});
+
+const expenseOne = store.dispatch(
+  addExpense({ description: "Rent", amount: 100 })
+);
+const expenseTwo = store.dispatch(
+  addExpense({ description: "Coffee", amount: 400 })
+);
+
+store.dispatch(removeExpense({ id: expenseOne.expense.id }));
 
 // this demostate basically writes down what states we want to have in our app
 /* THE STATE
