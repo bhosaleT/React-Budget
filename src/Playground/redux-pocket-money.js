@@ -44,6 +44,18 @@ const sortBtyAmount = () => ({
 const sortByDate = () => ({
   type: "SET_FILTER_SORTBYDATE"
 });
+
+//SET_START_DATE
+const setStartDate = startDate => ({
+  type: "SET_START_DATE",
+  startDate
+});
+
+//SET_END_DATE
+const setEndDate = endDate => ({
+  type: "SET_END_DATE",
+  endDate
+});
 //============================== EXPENSES REDUCER =================================//
 
 const expensesReducerDefaultState = [];
@@ -101,10 +113,56 @@ const filtersReducer = (state = filtersReducerDefaultState, action) => {
         ...state,
         sortBy: "date"
       };
+    case "SET_START_DATE":
+      return {
+        ...state,
+        startDate: action.startDate
+      };
+    case "SET_END_DATE":
+      return {
+        ...state,
+        endDate: action.endDate
+      };
     default:
       return state;
   }
 };
+
+//============================= GET VISIBLE EXPENSES ==========================//
+
+/* 
+--- WORKING OF FILTERING ---
+1.  the function named getVisibleExpenses takes in two things the state.expenses and state.filters
+2.  destruct the filter state into individiual variables.
+3.  three variables are created to check the startDate, EndDate, text
+4.  to check the startDate whether its number or not and then if expense.createdAt is less than or equal to the startDate
+5.  to check if the endDate is greater than createdAt
+6.  to match the text we use .includes(with the text filter provided) && convert all text to lowercase to make the filtering free or uppercase or lowercase
+7.  FILTER all the values where all three are true.
+8.  SortBy {using .sort() func} if the sort is based on time then check which ones createdAt timestamp value is lower that one should come first, if its sorted by amount        the larger amount one should come first.
+*/
+
+const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
+  return expenses
+    .filter(expense => {
+      const startDateMatch =
+        typeof startDate !== "number" || expense.createdAt >= startDate;
+      const endDateMatch =
+        typeof endDate !== "number" || expense.createdAt <= endDate;
+      const desc = expense.description.toLowerCase();
+      const textMatch = desc.includes(text.toLowerCase());
+
+      return startDateMatch && endDateMatch && textMatch;
+    })
+    .sort((a, b) => {
+      if (sortBy === "date") {
+        return a.createdAt < b.createdAt ? 1 : -1;
+      } else if (sortBy === "amount") {
+        return a.amount > b.amount ? -1 : 1;
+      }
+    });
+};
+
 //STORE CREATION
 
 const store = createStore(
@@ -115,27 +173,33 @@ const store = createStore(
 );
 
 store.subscribe(() => {
-  console.log(store.getState());
+  const state = store.getState();
+  const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
+  console.log(visibleExpenses);
 });
 
 const expenseOne = store.dispatch(
-  addExpense({ description: "Rent", amount: 100 })
+  addExpense({ description: "office rent", amount: 100, createdAt: 100000 })
 );
 const expenseTwo = store.dispatch(
-  addExpense({ description: "Coffee", amount: 400 })
+  addExpense({ description: "Coffee", amount: 400, createdAt: 10 })
 );
 
-store.dispatch(removeExpense({ id: expenseOne.expense.id }));
+// store.dispatch(removeExpense({ id: expenseOne.expense.id }));
 
-store.dispatch(editExpense(expenseTwo.expense.id, { amount: 500 }));
+// store.dispatch(editExpense(expenseTwo.expense.id, { amount: 500 }));
 
-store.dispatch(setTextFilter("rent"));
+// store.dispatch(setTextFilter("rent"));
 
 store.dispatch(sortBtyAmount());
 
-store.dispatch(sortByDate());
+// store.dispatch(sortByDate());
 
-// this demostate basically writes down what states we want to have in our app
+// store.dispatch(setStartDate(10000));
+// store.dispatch(setStartDate());
+// store.dispatch(setEndDate(300));
+// store.dispatch(setEndDate());
+
 /* THE STATE
 ---  EXPENSES  ---
 1. id - random number to denote the id of expense
