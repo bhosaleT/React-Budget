@@ -28,8 +28,10 @@
 
 //Array Destruction
 
-const address = ["404/lame street", "Lakme", "heromoto", "421301"];
+// const address = ["404/lame street", "Lakme", "heromoto", "421301"];
 
-const [street, city, state, zip] = address;
+// const [street, city, state, zip] = address;
 
-console.log(`you are in ${city} ${state}`);
+// console.log(`you are in ${city} ${state}`);
+
+const item = ['Coffee (hot)' , 'Coffee (cold)', 'Tea', 'Sandwich', 'Biscuit', 'Water'];
