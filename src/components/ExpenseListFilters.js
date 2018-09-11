@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { setTextFilter } from "../actions/filters";
+import { sortByDate, sortByAmount } from '../actions/filters'; 
 
 /* ======================= WORKING OF DISPATCH WITH CONNECT FOR FILTERING WITH TEXT =====================
 -- we use connect to connect the expeselistfilters component to the redux store.
@@ -18,6 +19,12 @@ const ExpenseListFilters = props => (
         props.dispatch(setTextFilter(e.target.value));
       }}
     />
+    <select value={props.filters.sortBy} onChange = {(e)=>{
+        props.dispatch(e.target.value === 'date' ? sortByDate() : sortByAmount() )
+    }}>
+     <option value="date">Date</option>
+     <option value="amount">Amount</option>
+    </select>
   </div>
 );
 
