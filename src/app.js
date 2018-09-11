@@ -12,19 +12,19 @@ import AppRouter from "./routers/AppRouter";
 const store = configureStore();
 
 store.dispatch(
-  addExpense({ description: "Water Bill", amount: 200, createdAt: 6000 })
+  addExpense({ description: "Water Bill", amount: 200, createdAt: 1})
 );
 
 store.dispatch(
-  addExpense({ description: "Gas Bill", amount: 100, createdAt: 12000 })
+  addExpense({ description: "Gas Bill", amount: 100, createdAt: 2 })
 );
 
 store.dispatch(
-  addExpense({ description: "Electricity Bill", amount: 500, createdAt: 2000 })
+  addExpense({ description: "Electricity Bill", amount: 500, createdAt: 3 })
 );
 
 store.dispatch(
-  addExpense({ description: "House Rent", amount: 1500, createdAt: 220000 })
+  addExpense({ description: "House Rent", amount: 1500, createdAt: 4 })
 );
 
 const state = store.getState();

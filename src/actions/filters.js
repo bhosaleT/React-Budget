@@ -5,7 +5,7 @@ export const setTextFilter = (text = "") => ({
 });
 
 //SET_FILTER_SORTBYAMOUNT
-export const sortBtyAmount = () => ({
+export const sortByAmount = () => ({
     type: "SET_FILTER_SORTBYAMOUNT"
 });
 
