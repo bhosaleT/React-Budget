@@ -10,7 +10,7 @@ const ExpenseList = props => (
       {props.expenses.map(expense => {
         return (
           <li key={expense.id}>
-            <ExpenseListItem {...expense} />{" "}
+            <ExpenseListItem  {...expense} />{" "}
             {/* to destructuring expenses at the ExpenseListItem we will add spreading to the props passing */}
           </li>
         );
@@ -18,6 +18,7 @@ const ExpenseList = props => (
     </ul>
   </div>
 );
+
 
 /* 
     ==================================== WORKING OF CONNECT =========================== 
