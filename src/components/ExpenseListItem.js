@@ -1,6 +1,5 @@
 import React from "react";
-import { removeExpense } from "../actions/expenses";
-import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 /*  ================= WORKING OF DELETE BUTTON =============
 -- the mapStateToProps is not always required so to remove a state, we will import our action function removeExpense and call dispatch(removeExpense(with the expense id))
@@ -11,18 +10,14 @@ import { connect } from "react-redux";
 const ExpenseListItem = ({ dispatch, id, description, amount, createdAt }) => {
   return (
     <div>
-      <h3>{description}</h3>
+      <Link to={`/edit/${id}`}>
+        <h3>{description}</h3>
+      </Link>
       <p>Amount: {amount}</p>
       <p>Time: {createdAt}</p>
-      <button
-        onClick={() => {
-          dispatch(removeExpense({ id }));
-        }}
-      >
-        Remove
-      </button>
+    
     </div>
   );
 };
 
-export default connect()(ExpenseListItem);
+export default ExpenseListItem;
