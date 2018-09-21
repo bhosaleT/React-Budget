@@ -3,22 +3,24 @@ import { connect } from "react-redux";
 import ExpenseListItem from "./ExpenseListItem";
 import getVisibleExpenses from "../selectors/expenses";
 
-const ExpenseList = props => (
+export const ExpenseList = props => (
   <div>
-    <h1>Expense List</h1>
-    <ul>
-      {props.expenses.map(expense => {
-        return (
-          <li key={expense.id}>
-            <ExpenseListItem  {...expense} />{" "}
-            {/* to destructuring expenses at the ExpenseListItem we will add spreading to the props passing */}
-          </li>
-        );
-      })}
-    </ul>
+    {props.expenses.length === 0 ? (
+      <p>No Expenses Found</p>
+    ) : (
+      <ul>
+        {props.expenses.map(expense => {
+          return (
+            <li key={expense.id}>
+              <ExpenseListItem {...expense} />{" "}
+              {/* to destructuring expenses at the ExpenseListItem we will add spreading to the props passing */}
+            </li>
+          );
+        })}
+      </ul>
+    )}
   </div>
 );
-
 
 /* 
     ==================================== WORKING OF CONNECT =========================== 

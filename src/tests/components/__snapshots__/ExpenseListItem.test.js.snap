@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render a list item 1`] = `
+<div>
+  <Link
+    replace={false}
+    to="/edit/undefined"
+  >
+    <h3 />
+  </Link>
+  <p>
+    Amount: 
+  </p>
+  <p>
+    Time: 
+  </p>
+</div>
+`;
