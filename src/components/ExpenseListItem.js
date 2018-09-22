@@ -7,6 +7,27 @@ import numeral from 'numeral';
 -- $ This code exists in this component because the id is already passed through props and destructured here so we already have it here to be directly passed into the          function.
 -- $ Remember the action functions take in objects {}.
 */
+numeral.register('locale', 'in', {
+  delimiters: {
+    thousands: ' ',
+    decimal: '.'
+  },
+  abbreviations: {
+    thousand: 'k',
+    million: 'm',
+    billion: 'b',
+    trillion: 't'
+  },
+  ordinal: function (number) {
+    return number === 1 ? 'er' : 'ème';
+  },
+  currency: {
+    symbol: '₹'
+  }
+});
+
+// switch between locales
+numeral.locale('in');
 
 const ExpenseListItem = ({ dispatch, id, description, amount, createdAt }) => {
   return (
