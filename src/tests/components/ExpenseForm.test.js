@@ -2,6 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import ExpenseForm from "../../components/ExpenseForm";
 import expenses from "../fixtures/expenses";
+import moment from 'moment';
 
 /* =================== THE PROBLEM ENCOUNTERD ========================
 ++ The expense form component uses moment() to get the start date and end date and when we create a screenshot VS when we are checking against that screenshot
@@ -82,3 +83,36 @@ test("Should set amount if invalid amount is provided", () => {
     });
   expect(wrapper.state("amount")).toBe("");
 });
+
+// Should call onSubmit prop for valid form submission, 
+//here we want to test if function is called with all the data in it or not so we create a spy function for it.
+test("should call onSubmit prop for valid form submission", () => {
+  const onSubmitSpy = jest.fn();
+  const wrapper = shallow(
+    <ExpenseForm expense={expenses[1]} onSubmit={onSubmitSpy} />
+  );
+  wrapper.find("form").simulate("submit", {
+    preventDefault: () => {}
+  });
+  expect(wrapper.state("error")).toBe("");
+  expect(onSubmitSpy).toHaveBeenLastCalledWith({
+    description: expenses[1].description,
+    amount: expenses[1].amount,
+    note: expenses[1].note,
+    createdAt: expenses[1].createdAt
+  });
+});
+
+// test("Should set new date on date change", () => {
+//     const now = moment();
+//     const wrapper = shallow(<ExpenseForm />);
+//     wrapper.find("SingleDatePicker").prop("onDateChange")(now);
+//     expect(wrapper.state('createdAt')).toEqual(now);
+// });
+
+// test("Should set calendar foucs on change", ()=>{
+//     const focused = true;
+//   const wrapper = shallow(<ExpenseForm />);
+//   wrapper.find('SingleDatePicker').prop('onFocusChange')(focused);
+//   expect(wrapper.state('calFocused')).toBe(focused);
+// });
