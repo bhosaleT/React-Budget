@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import moment from 'moment';
+import numeral from 'numeral';
 /*  ================= WORKING OF DELETE BUTTON =============
 -- the mapStateToProps is not always required so to remove a state, we will import our action function removeExpense and call dispatch(removeExpense(with the expense id))
 -- $ This code exists in this component because the id is already passed through props and destructured here so we already have it here to be directly passed into the          function.
@@ -13,9 +14,11 @@ const ExpenseListItem = ({ dispatch, id, description, amount, createdAt }) => {
       <Link to={`/edit/${id}`}>
         <h3>{description}</h3>
       </Link>
-      <p>Amount: {amount}</p>
-      <p>Time: {createdAt}</p>
-    
+      <p>
+        {numeral(amount / 100).format('$0,0.00')}
+        -
+        {moment(createdAt).format('MMMM Do, YYYY')}
+      </p>
     </div>
   );
 };

@@ -9,10 +9,9 @@ exports[`Should render a list item 1`] = `
     <h3 />
   </Link>
   <p>
-    Amount: 
-  </p>
-  <p>
-    Time: 
+    $0.00
+    -
+    January 1st, 1970
   </p>
 </div>
 `;
