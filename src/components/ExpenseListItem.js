@@ -9,7 +9,7 @@ import numeral from 'numeral';
 */
 numeral.register('locale', 'in', {
   delimiters: {
-    thousands: ' ',
+    thousands: ',',
     decimal: '.'
   },
   abbreviations: {
