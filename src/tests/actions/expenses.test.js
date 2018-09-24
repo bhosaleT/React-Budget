@@ -7,7 +7,8 @@ import {
   removeExpense,
   editExpense,
   setExpenses,
-  startSetExpenses
+  startSetExpenses,
+  startRemoveExpense
 } from "../../actions/expenses";
 import expenses from "../fixtures/expenses";
 import database from "../../firebase/firebase";
@@ -39,6 +40,31 @@ test("Should setup remove expense action object", () => {
     type: "REMOVE_EXPENSE",
     id: "123abc"
   });
+});
+
+//REMOVE EXPENSE ASYNCHRONOUS FUNCTIOn
+/* 
+-- We create a mock store run the action on it to startRemoveExpense which will run the action test its type and then fetch back data from
+   firebase and snapshot.val() its value to be falsy.
+*/
+
+test("Should remove expense from firebase", done => {
+  const store = createMockStore({});
+  const id = expenses[2].id;
+  store
+    .dispatch(startRemoveExpense({ id }))
+    .then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: "REMOVE_EXPENSE",
+        id
+      });
+      return database.ref(`expenses/${id}`).once("value");
+    })
+    .then(snapshot => {
+      expect(snapshot.val()).toBeFalsy();
+      done();
+    });
 });
 
 // EDIT EXPENSE ACTION

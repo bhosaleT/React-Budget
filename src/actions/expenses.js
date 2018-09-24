@@ -34,6 +34,19 @@ export const startAddExpense = (expenseData = {}) => {
 //REMOVE_EXPENSE
 export const removeExpense = ({ id } = {}) => ({ type: "REMOVE_EXPENSE", id });
 
+/* New action to remove expense 
+-- Very simple just reference the database with 'expenses/${id} and then run .remove() and then dispatch.
+*/
+export const startRemoveExpense = ( {id} = {} ) => {
+  return (dispatch) => {
+   return database.ref(`expenses/${id}`).remove().then(() =>{
+     dispatch(removeExpense({id}));
+   })
+  }
+}
+
+
+
 // EDIT_EXPEPNSE
 export const editExpense = (id, updates) => ({
   type: "EDIT_EXPENSE",
