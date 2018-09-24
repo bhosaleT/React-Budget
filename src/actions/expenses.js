@@ -40,3 +40,36 @@ export const editExpense = (id, updates) => ({
   id,
   updates
 });
+
+// SET_EXPENSES
+export const setExpenses = expenses => ({
+  type: "SET_EXPENSES",
+  expenses
+});
+
+
+/* HOW FETCHING DATA FROM THE DATABASE WORKS FOR THE FIRST TIME 
+-- we use functions which will contact firebase and then also push our actions.
+-- we will return (dispatch) to get access to dispatch
+-- then we reference to database using .ref() and then .once() which then gives us a snapshot which is our data.
+-- then we loop through it using forEach and get inside that we get childsnapshot we add the childsnapshot to an array 
+   which we will call expenses and then just the id comes form child snapshot and then we spread the childsnapshot.val().
+-- Then we will dispatch(setExpenses).
+*/
+
+
+// export const startSetExpenses;
+export const startSetExpenses = () => {
+  return dispatch => {
+   return database.ref('expenses').once('value').then((snapshot)=>{
+     const expenses = [];
+     snapshot.forEach((childsnapshot) => {
+        expenses.push({
+          id: childsnapshot.key,
+          ...childsnapshot.val()
+        });
+     });
+     dispatch(setExpenses(expenses));
+    })
+  };
+};
