@@ -37,15 +37,16 @@ export const removeExpense = ({ id } = {}) => ({ type: "REMOVE_EXPENSE", id });
 /* New action to remove expense 
 -- Very simple just reference the database with 'expenses/${id} and then run .remove() and then dispatch.
 */
-export const startRemoveExpense = ( {id} = {} ) => {
-  return (dispatch) => {
-   return database.ref(`expenses/${id}`).remove().then(() =>{
-     dispatch(removeExpense({id}));
-   })
-  }
-}
-
-
+export const startRemoveExpense = ({ id } = {}) => {
+  return dispatch => {
+    return database
+      .ref(`expenses/${id}`)
+      .remove()
+      .then(() => {
+        dispatch(removeExpense({ id }));
+      });
+  };
+};
 
 // EDIT_EXPEPNSE
 export const editExpense = (id, updates) => ({
@@ -54,12 +55,23 @@ export const editExpense = (id, updates) => ({
   updates
 });
 
+//START_EDIT_EXPENSE
+export const startEditExpense = (id, updates) => {
+  return dispatch => {
+    return database
+      .ref(`expenses/${id}`)
+      .update(updates)
+      .then(() => {
+        dispatch(editExpense(id, updates));
+      });
+  };
+};
+
 // SET_EXPENSES
 export const setExpenses = expenses => ({
   type: "SET_EXPENSES",
   expenses
 });
-
 
 /* HOW FETCHING DATA FROM THE DATABASE WORKS FOR THE FIRST TIME 
 -- we use functions which will contact firebase and then also push our actions.
@@ -70,19 +82,21 @@ export const setExpenses = expenses => ({
 -- Then we will dispatch(setExpenses).
 */
 
-
 // export const startSetExpenses;
 export const startSetExpenses = () => {
   return dispatch => {
-   return database.ref('expenses').once('value').then((snapshot)=>{
-     const expenses = [];
-     snapshot.forEach((childsnapshot) => {
-        expenses.push({
-          id: childsnapshot.key,
-          ...childsnapshot.val()
+    return database
+      .ref("expenses")
+      .once("value")
+      .then(snapshot => {
+        const expenses = [];
+        snapshot.forEach(childsnapshot => {
+          expenses.push({
+            id: childsnapshot.key,
+            ...childsnapshot.val()
+          });
         });
-     });
-     dispatch(setExpenses(expenses));
-    })
+        dispatch(setExpenses(expenses));
+      });
   };
 };
