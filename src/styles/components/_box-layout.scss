@@ -1,8 +1,8 @@
 .box-layout {
-  background: linear-gradient(rgba(19, 18, 18, 0.65), rgba(7, 7, 7, 0.78)),
-    /* bottom, image */ url("/images/background.jpg");
+  background: linear-gradient(to bottom right , rgba(19, 18, 18, 0.70), rgba(7, 7, 7, 0.78)),
+    /* bottom, image */ url("/images/coins.jpg");
   height: 100vh;
-  width: 100vw;
+  width: 99.9vw;
   background-size: cover;
   padding-top: 10px;
   display: flex;
@@ -11,7 +11,7 @@
 }
 
 .box-layout__box {
-  background: fade-out($color: white, $amount: 0.2);
+  background: fade-out($color: white, $amount: 0.15);
   padding: 40px 25px;
   display: grid;
   border-radius: 20px;

@@ -5,7 +5,7 @@ import { startLoginWithGoogle, startLoginWithGithub } from "../actions/auth";
 export const LoginPage = ({ startLoginWithGoogle, startLoginWithGithub }) => (
   <div className="box-layout">
     <div className="box-layout__box">
-      <h1 className="box-layout__title">Pocket-Money</h1>
+      <h1 className="box-layout__title">Pocket Money</h1>
       <p className="box-layout__paragraph">Start saving today! A rupee at a time.</p>
       <button className="button" onClick={startLoginWithGoogle}>
         Sign in with <span style={{ color: "red" }}>Google</span>
