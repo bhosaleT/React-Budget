@@ -1,0 +1,34 @@
+.box-layout {
+  background: linear-gradient(rgba(19, 18, 18, 0.65), rgba(7, 7, 7, 0.78)),
+    /* bottom, image */ url("/images/background.jpg");
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box-layout__box {
+  background: fade-out($color: white, $amount: 0.2);
+  padding: 40px 25px;
+  display: grid;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid #272727;
+}
+
+.box-layout__box h1 {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.box-layout__title {
+  font-size: 35px;
+  line-height: 1;
+}
+
+.box-layout__paragraph {
+  font-size: 20px;
+}
