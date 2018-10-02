@@ -1,12 +1,17 @@
 .button {
   border-radius: 10px;
-  padding: 15px 5px;
+  padding: 15px 10px;
   font-size: 20px;
   background: #272727;
   color: white;
   margin-bottom: 10px;
   transition: all 0.2s;
   outline: none;
+  font-weight: 300;
+  line-height: 1;
+  display: inline-block;
+  text-decoration: none;
+  border: none;
 }
 .button:hover {
   transform: translateY(-3px);
@@ -15,4 +20,8 @@
 .button:active {
   transform: translateY(-1px);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.9);
+}
+
+.button--link {
+  background: none;
 }
