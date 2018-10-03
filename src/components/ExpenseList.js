@@ -4,20 +4,22 @@ import ExpenseListItem from "./ExpenseListItem";
 import getVisibleExpenses from "../selectors/expenses";
 
 export const ExpenseList = props => (
-  <div>
+  <div className="content-container">
+    <div className="list-header">
+      <div className="show-for-mobile">Expenses</div>
+      <div className="show-for-desktop">Expense</div>
+      <div className="show-for-desktop">Amount</div>
+    </div>
+
     {props.expenses.length === 0 ? (
       <p>No Expenses Found</p>
     ) : (
-      <ul>
-        {props.expenses.map(expense => {
-          return (
-            <li key={expense.id}>
-              <ExpenseListItem {...expense} />{" "}
-              {/* to destructuring expenses at the ExpenseListItem we will add spreading to the props passing */}
-            </li>
-          );
-        })}
-      </ul>
+      props.expenses.map(expense => {
+        return <ExpenseListItem key={expense.id} {...expense} />;
+        {
+          /* to destructuring expenses at the ExpenseListItem we will add spreading to the props passing */
+        }
+      })
     )}
   </div>
 );
