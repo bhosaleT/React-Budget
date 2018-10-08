@@ -11,16 +11,20 @@ export const ExpenseList = props => (
       <div className="show-for-desktop">Amount</div>
     </div>
 
-    {props.expenses.length === 0 ? (
-      <p>No Expenses Found</p>
-    ) : (
-      props.expenses.map(expense => {
-        return <ExpenseListItem key={expense.id} {...expense} />;
-        {
-          /* to destructuring expenses at the ExpenseListItem we will add spreading to the props passing */
-        }
-      })
-    )}
+   <div className="list-body">
+      {props.expenses.length === 0 ? (
+        <div>
+          <span className="list-item--message">No Expenses</span>
+        </div>
+      ) : (
+          props.expenses.map(expense => {
+            return <ExpenseListItem key={expense.id} {...expense} />;
+            {
+              /* to destructuring expenses at the ExpenseListItem we will add spreading to the props passing */
+            }
+          })
+        )}
+   </div>
   </div>
 );
 

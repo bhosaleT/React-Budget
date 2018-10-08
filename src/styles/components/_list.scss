@@ -1,9 +1,67 @@
-.list-header{
-    background: #eeeeee;
-    border: 1px solid darken(#eeeeee, 7%);
-    color: #666;
-    display: flex;
+.list-header {
+  background: #eeeeee;
+  border: 1px solid darken(#eeeeee, 7%);
+  color: #666;
+  display: flex;
+  justify-content: space-between;
+  padding: $s-size $m-size;
+  border-radius: 10px;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid darken($color: #f9f9f9, $amount: 10%);
+  border-top: none;
+  color: #272722;
+  padding: $s-size;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  border-radius: 10px;
+  &:hover {
+    background: #f9f9f9;
+  }
+
+  @media (min-width: $desktop-breakpoint) {
+    flex-direction: row;
     justify-content: space-between;
-    padding: $s-size $m-size;
-    border-radius: 10px;
+    padding: $m-size;
+    align-items: center;
+  }
+
+  &__title {
+    margin: 0;
+    word-break: break-all; // breaks the super long words.
+  }
+
+  &__subtitle {
+    color: #666;
+    font-size: 1.4rem;
+  }
+
+  &__data {
+    margin: 20px 0 0 0;
+
+    @media (min-width: $desktop-breakpoint) {
+      margin: 0;
+      padding-left: 20px;
+    }
+  }
+
+  &--message {
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    padding: 30px;
+    &:hover {
+      background: none;
+    }
+  }
+}
+
+.list-body {
+  margin-bottom: 30px;
+  @media (min-width: $desktop-breakpoint) {
+    margin-bottom: 40px;
+  }
 }
