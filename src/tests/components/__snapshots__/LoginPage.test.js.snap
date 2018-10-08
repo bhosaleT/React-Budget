@@ -1,19 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Should render header correctly 1`] = `
-<div>
-  <h1>
-    Login
-  </h1>
-  <button
-    onClick={[Function]}
+<div
+  className="box-layout"
+>
+  <div
+    className="box-layout__box"
   >
-    Login with google
-  </button>
-  <button
-    onClick={[Function]}
-  >
-    Login with Github
-  </button>
+    <h1
+      className="box-layout__title"
+    >
+      Pocket Money
+    </h1>
+    <p
+      className="box-layout__paragraph"
+    >
+      Start saving today! A rupee at a time.
+    </p>
+    <button
+      className="button"
+      onClick={[Function]}
+    >
+      Sign in with 
+      <span
+        style={
+          Object {
+            "color": "red",
+          }
+        }
+      >
+        Google
+      </span>
+    </button>
+    <button
+      className="button"
+      onClick={[Function]}
+    >
+      Sign in with 
+      <span
+        style={
+          Object {
+            "color": "#838383",
+          }
+        }
+      >
+        Github
+      </span>
+    </button>
+  </div>
 </div>
 `;
