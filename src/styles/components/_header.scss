@@ -1,5 +1,5 @@
 .header {
-  background: $matt-black;
+  background: $primary-purple;
 }
 
 .header__title {
@@ -14,4 +14,8 @@
     display: flex;
     justify-content: space-between;
     padding: $s-size 0;
+}
+
+.highlight{
+  color: $primary-purple;
 }
